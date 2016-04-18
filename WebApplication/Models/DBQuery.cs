@@ -47,7 +47,7 @@ namespace WebApplication.Models
                 query = builder.Lt("Speed", number);
             }
 
-            var result = await posCollection.Find(query).Sort(sort).ToListAsync();
+            var result = await posCollection.Find(query).Sort(sort).Limit(100000).ToListAsync();
             return result;
         }
 
@@ -79,7 +79,7 @@ namespace WebApplication.Models
             var query = builder.Eq("UnitId", unitAtt);
 
 
-            var result = await posCollection.Find(query).ToListAsync();
+            var result = await posCollection.Find(query).Limit(100000).ToListAsync();
             return result;
         }
 
@@ -138,7 +138,7 @@ namespace WebApplication.Models
 
             var sort = Builders<BsonDocument>.Sort.Ascending("type");
 
-            var result = await monCollection.Find(query).Sort(sort).ToListAsync();
+            var result = await monCollection.Find(query).Sort(sort).Limit(100000).ToListAsync();
             return result;
         }
 
@@ -187,7 +187,7 @@ namespace WebApplication.Models
             var empty = new BsonDocument();
             var query = builder.Regex("DateTime", dateTime) & builder.Eq("UnitId", UnitID);
 
-            var result = await posCollection.Find(query).ToListAsync();
+            var result = await posCollection.Find(query).Limit(100000).ToListAsync();
             return result;
         }
         // get the data out of the database and executes a query.
@@ -198,7 +198,7 @@ namespace WebApplication.Models
             //var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort) & builder.In("beginTime", beginTime);
             var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort);
 
-            var result = await monCollection.Find(query).ToListAsync();
+            var result = await monCollection.Find(query).Limit(100000).ToListAsync();
             return result;
         }
         public static async Task<List<HtmlString>> GetHardwareData(long hardwareCarID,string hardwareSort)
@@ -219,6 +219,6 @@ namespace WebApplication.Models
                 dataList.Add(valueResult);
             }
             return dataList;
-        }
+        }  
     }
 }
